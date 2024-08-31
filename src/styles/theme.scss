@@ -1,0 +1,14 @@
+html,
+body {
+  font-family: "Times New Roman", Times, serif;
+}
+a {
+  color: blue;
+}
+.btn-blue {
+  background-color: blue;
+  color: white;
+  &:hover {
+    border: 1px solid black;
+  }
+}

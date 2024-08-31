@@ -15,7 +15,6 @@ function Header() {
       <Helmet>
         <title>{preferences?.artists_name}</title>
         <meta name="author" content={preferences?.artists_name} />
-        <link rel="icon" href="/favicon/favicon.ico" type="image/x-icon" />
 
         {/* Favicons and Icons for Different Platforms */}
         <link rel="icon" href="/favicon/favicon.ico" type="image/x-icon" />
