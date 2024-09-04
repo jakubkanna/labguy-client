@@ -37,7 +37,6 @@ export default function Project() {
             <p>
               {start_date && (
                 <>
-                  {/* Format dates using dayjs */}
                   {dayjs(start_date).format("DD MMM YYYY")} -{" "}
                   {end_date ? dayjs(end_date).format("DD MMM YYYY") : "N/A"}
                 </>
@@ -89,7 +88,7 @@ export default function Project() {
         <Row>
           <Col>
             <span>Related: </span>
-            {urls &&
+            {urls.length > 0 &&
               urls.map((url) => (
                 <span key={url.id}>
                   <Link to={url.url} target="_blank">
