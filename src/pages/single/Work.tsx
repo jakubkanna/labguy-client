@@ -11,7 +11,7 @@ export default function Work() {
 
   if (!data) return null;
 
-  const { general, dimensions, year, images, videos } = data;
+  const { general, dimensions, medium, year, images, videos } = data;
 
   if (!general.published) return "This page is private.";
 
@@ -21,8 +21,9 @@ export default function Work() {
         {/* Display Dimensions and Year */}
         <Row>
           <Col xs={12}>
-            <p>
-              {dimensions && <span>Dimensions: {dimensions} </span>}
+            <p id="Details">
+              {medium && <span>Medium: {medium}</span>}
+              {dimensions && <span>Dimensions: {dimensions} (cm)</span>}
               {year && <span>Year: {year}</span>}
             </p>
           </Col>

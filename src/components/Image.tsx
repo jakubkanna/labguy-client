@@ -62,9 +62,6 @@ export default function Image({ imageref, className }: ImageProps) {
 
   const { src, srcSet, sizes, alt } = getImageAttributes(imageref);
 
-  // Log the attributes for debugging
-  console.log("Image attributes:", { src, srcSet, sizes, alt });
-
   return (
     <img
       src={src}

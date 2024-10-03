@@ -60,8 +60,6 @@ export default function Post() {
     return <p>No content available.</p>;
   }
 
-  console.log("Content data:", content);
-
   return (
     <Layout title={general.title}>
       <Container className="d-flex flex-column gap-4">

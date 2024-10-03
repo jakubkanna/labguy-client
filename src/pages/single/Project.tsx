@@ -10,7 +10,7 @@ import HTMLReactParser from "html-react-parser/lib/index";
 import dayjs from "dayjs";
 
 export default function Project() {
-  const data = (useLoaderData() as ProjectSchema) || null;
+  const data = useLoaderData() as ProjectSchema;
 
   if (!data) return null;
 
@@ -37,7 +37,6 @@ export default function Project() {
             <p>
               {start_date && (
                 <>
-                  {/* Format dates using dayjs */}
                   {dayjs(start_date).format("DD MMM YYYY")} -{" "}
                   {end_date ? dayjs(end_date).format("DD MMM YYYY") : "N/A"}
                 </>
@@ -78,7 +77,8 @@ export default function Project() {
             ))}
         </Row>
         <Row className="gap-3">
-          {works.length > 0 &&
+          {works &&
+            works.length > 0 &&
             works.map((w) => (
               <Col xs={12} key={w.id}>
                 <WorkCard work={w} />{" "}
@@ -89,7 +89,8 @@ export default function Project() {
         <Row>
           <Col>
             <span>Related: </span>
-            {urls.length > 0 &&
+            {urls &&
+              urls.length > 0 &&
               urls.map((url) => (
                 <span key={url.id}>
                   <Link to={url.url} target="_blank">

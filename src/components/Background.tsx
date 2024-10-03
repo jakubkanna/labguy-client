@@ -1,4 +1,3 @@
-import React, { useEffect } from "react";
 import {
   ImageRefSchema,
   VideoRefSchema,
@@ -12,8 +11,6 @@ interface BackgroundProps {
 }
 
 const Background: React.FC<BackgroundProps> = ({ bgImgRef, bgVideoRef }) => {
-  useEffect(() => console.log(bgImgRef, bgVideoRef), [bgImgRef, bgVideoRef]);
-
   // Check if image data exists and is not null
   if (bgImgRef && bgImgRef.length > 0) {
     return (
