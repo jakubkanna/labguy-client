@@ -19,7 +19,7 @@ export default function MediaComponent({ media, className }: MediaProps) {
         if (isImage(item)) {
           return <Image key={index} imageref={item} className={className} />;
         } else if (isVideo(item)) {
-          return <Video key={index} videoref={item} className={className} />;
+          return <Video key={index} videoref={item} />;
         } else {
           return <p key={index}>Unsupported media type.</p>;
         }

@@ -13,7 +13,9 @@ export default function Image({ imageref, className }: ImageProps) {
   const [loading, setLoading] = useState(true); // State to handle loading status
   const [isImageValid, setIsImageValid] = useState<boolean>(true); // State to check image validity
 
-  const { src, srcSet, sizes, alt } = getImageAttributes(imageref);
+  const { src, srcSet, sizes, alt } = imageref
+    ? getImageAttributes(imageref)
+    : { src: "", srcSet: "", sizes: "", alt: "" };
 
   useEffect(() => {
     if (src) {
