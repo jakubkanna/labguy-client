@@ -23,7 +23,7 @@ const Background: React.FC<BackgroundProps> = ({ media }) => {
   }
 
   if (isVideo(media)) {
-    return <Video videoref={media[0] as VideoRefSchema} />;
+    return <Video videoref={media as VideoRefSchema} />;
   }
 
   return null;
