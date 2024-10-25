@@ -118,7 +118,7 @@ export default function Project() {
               ))
             ) : (
               <p>No related links available.</p>
-            )}
+            )}{" "}
             <Link to="/projects">All Projects</Link>
           </Col>
         </Row>

@@ -27,9 +27,9 @@ export default function Work() {
         <Row>
           <Col xs={12}>
             <p id="Details">
-              {medium && <span>Medium: {medium}, </span>}
-              {dimensions && <span>Dimensions: {dimensions} (cm), </span>}
-              {year && <span>Year: {year}</span>}
+              {dimensions && <span>{dimensions} (cm), </span>}
+              {medium && <span>{medium}, </span>}
+              {year && <span>{year}</span>}
             </p>
           </Col>
         </Row>
@@ -54,7 +54,6 @@ export default function Work() {
         <Row>
           <Col>
             <span>Related: </span>
-
             <Link to={"/works"}>All Works</Link>
           </Col>
         </Row>
