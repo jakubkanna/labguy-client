@@ -1,26 +1,29 @@
+import Image from "./Image";
+import Video from "./Video";
+import { isImage, isVideo, MediaRef } from "../utils/helpers";
 import {
   ImageRefSchema,
   VideoRefSchema,
 } from "@jakubkanna/labguy-front-schema";
-import Image from "./Image";
-import Video from "./Video";
 
 interface BackgroundProps {
-  bgImgRef?: ImageRefSchema[];
-  bgVideoRef?: VideoRefSchema[];
+  media?: MediaRef;
 }
 
-const Background: React.FC<BackgroundProps> = ({ bgImgRef, bgVideoRef }) => {
-  // Check if image data exists and is not null
-  if (bgImgRef && bgImgRef.length > 0) {
+const Background: React.FC<BackgroundProps> = ({ media }) => {
+  if (!media) return null;
+
+  if (isImage(media)) {
     return (
-      <Image className="w-100 h-100 object-fit-cover" imageref={bgImgRef[0]} />
+      <Image
+        className="w-100 h-100 object-fit-cover"
+        imageref={media as ImageRefSchema}
+      />
     );
   }
 
-  // Check if video data exists and log it if true
-  if (bgVideoRef && bgVideoRef.length > 0) {
-    return <Video videoref={bgVideoRef[0]} />;
+  if (isVideo(media)) {
+    return <Video videoref={media[0] as VideoRefSchema} />;
   }
 
   return null;

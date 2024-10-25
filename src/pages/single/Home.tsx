@@ -14,8 +14,7 @@ export default function Homepage() {
   const {
     homepage_heading,
     homepage_subheading,
-    homepage_background_image: bgImgRef,
-    homepage_background_video: bgVideoRef,
+    homepage_media,
     homepage_urls,
   } = preferences;
 
@@ -29,7 +28,7 @@ export default function Homepage() {
         </Row>
         <Row className="flex-grow-1">
           <Col>
-            <Background bgImgRef={bgImgRef} bgVideoRef={bgVideoRef} />
+            <Background media={homepage_media} />
           </Col>
         </Row>
         <Row>
@@ -41,8 +40,8 @@ export default function Homepage() {
           <Col>
             <ListGroup horizontal>
               {homepage_urls &&
-                homepage_urls.map((url) => (
-                  <ListGroup.Item key={url.id}>
+                homepage_urls.map((url, key) => (
+                  <ListGroup.Item key={key}>
                     <Link to={(url as UrlSchema).url} target="_blank">
                       {(url as UrlSchema).title}
                     </Link>

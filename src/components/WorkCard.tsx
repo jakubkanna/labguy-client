@@ -3,6 +3,7 @@ import Image from "./Image";
 import { Link } from "react-router-dom";
 import { Work } from "../pages/Works";
 import Video from "./Video";
+import { isImage, MediaRef, isVideo } from "../utils/helpers";
 
 interface CardProps {
   work: Work;
@@ -10,19 +11,17 @@ interface CardProps {
 }
 
 export default function WorkCard({ work }: CardProps) {
-  const { general, dimensions, year, images, videos } = work;
+  const { general, dimensions, year, media } = work;
   const { title, slug } = general;
-
+  const image = isImage(media[0] as MediaRef) && (media[0] as MediaRef);
+  const video = isVideo(media[0] as MediaRef) && (media[0] as MediaRef);
   return (
     <Link to={"/works/" + (slug || "#")}>
       <Container>
         <Row className="gap-3 p-2">
           <Col xs={12}>
-            {images && images[0] ? (
-              <Image imageref={images[0]}></Image>
-            ) : (
-              videos && videos[0] && <Video videoref={videos[0]} />
-            )}
+            {image && <Image imageref={image}></Image>}
+            {video && <Video videoref={video}></Video>}
           </Col>
         </Row>
         <Row>

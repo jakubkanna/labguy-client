@@ -5,13 +5,18 @@ import { Work as WorkSchema } from "../Works";
 import Image from "../../components/Image";
 import Video from "../../components/Video";
 import { Link } from "react-router-dom";
+import { isImage, isVideo } from "../../utils/helpers";
+import {
+  ImageRefSchema,
+  VideoRefSchema,
+} from "@jakubkanna/labguy-front-schema";
 
 export default function Work() {
   const data = (useLoaderData() as WorkSchema) || null;
 
   if (!data) return null;
 
-  const { general, dimensions, medium, year, images, videos } = data;
+  const { general, dimensions, medium, year, media } = data;
 
   if (!general.published) return "This page is private.";
 
@@ -22,33 +27,29 @@ export default function Work() {
         <Row>
           <Col xs={12}>
             <p id="Details">
-              {medium && <span>Medium: {medium}</span>}
-              {dimensions && <span>Dimensions: {dimensions} (cm)</span>}
+              {medium && <span>Medium: {medium}, </span>}
+              {dimensions && <span>Dimensions: {dimensions} (cm), </span>}
               {year && <span>Year: {year}</span>}
             </p>
           </Col>
         </Row>
-
         {/* Display Images */}
         <Row className="gap-3">
-          {images &&
-            images.map((img) => (
-              <Col xs={12} key={img.etag}>
-                <Image imageref={img} />
+          {media && media.length > 0 ? (
+            media.map((item) => (
+              <Col xs={12} key={item?.etag}>
+                {isImage(item) && <Image imageref={item as ImageRefSchema} />}{" "}
+                {/* Render image */}
+                {isVideo(item) && (
+                  <Video videoref={item as VideoRefSchema} />
+                )}{" "}
+                {/* Render video */}
               </Col>
-            ))}
+            ))
+          ) : (
+            <p>No media available for this project.</p>
+          )}
         </Row>
-
-        {/* Display Videos */}
-        <Row className="gap-3">
-          {videos &&
-            videos.map((video) => (
-              <Col xs={12} key={video.etag}>
-                <Video videoref={video} />
-              </Col>
-            ))}
-        </Row>
-
         {/* Footer Section */}
         <Row>
           <Col>

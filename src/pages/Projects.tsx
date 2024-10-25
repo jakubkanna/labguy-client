@@ -1,20 +1,18 @@
 import { useLoaderData, useParams, Outlet } from "react-router-dom";
 import {
   GeneralSectionSchema,
-  ImageRefSchema,
   ProjectSchema,
   UrlSchema,
-  VideoRefSchema,
 } from "@jakubkanna/labguy-front-schema";
 import Layout from "../components/layout/Layout.";
 import ProjectCard from "../components/ProjectCard";
 import { Container } from "react-bootstrap";
 import { Work } from "./Works";
+import { MediaRef } from "../utils/helpers";
 
 export interface Project extends ProjectSchema {
   general: GeneralSectionSchema;
-  images: ImageRefSchema[];
-  videos: VideoRefSchema[];
+  media: MediaRef[];
   urls: UrlSchema[];
   works: Work[];
 }

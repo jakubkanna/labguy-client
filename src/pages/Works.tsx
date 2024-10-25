@@ -1,18 +1,16 @@
 import { Outlet, useLoaderData, useParams } from "react-router-dom";
 import {
   GeneralSectionSchema,
-  ImageRefSchema,
-  VideoRefSchema,
   WorkSchema,
 } from "@jakubkanna/labguy-front-schema";
 import Layout from "../components/layout/Layout.";
 import WorkCard from "../components/WorkCard";
 import { Col } from "react-bootstrap";
+import { MediaRef } from "../utils/helpers";
 
 export interface Work extends WorkSchema {
   general: GeneralSectionSchema;
-  images: ImageRefSchema[];
-  videos: VideoRefSchema[];
+  media: MediaRef[];
 }
 
 export default function Works() {
