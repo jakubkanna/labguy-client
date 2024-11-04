@@ -10,7 +10,7 @@ import { MediaRef } from "../utils/helpers";
 
 export interface Work extends WorkSchema {
   general: GeneralSectionSchema;
-  media: MediaRef[];
+  media?: MediaRef[];
 }
 
 export default function Works() {
