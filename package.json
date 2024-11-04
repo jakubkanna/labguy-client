@@ -1,6 +1,7 @@
 {
   "name": "labguy-clinet",
-  "private": true,
+  "author": "jakubkanna",
+  "license": "GPL-3.0-only",
   "version": "1.0.0",
   "type": "module",
   "scripts": {
@@ -63,8 +64,6 @@
     "frontend",
     "bootstrap"
   ],
-  "author": "jakubkanna",
-  "license": "ISC",
   "bugs": {
     "url": "https://github.com/jakubkanna/labguy-client/issues"
   },
