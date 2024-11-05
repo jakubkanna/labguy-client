@@ -36,7 +36,11 @@ export default function Homepage() {
         </Row>
         <Row>
           <Col>
-            <ListGroup horizontal className="justify-content-center">
+            <ListGroup
+              horizontal
+              className="justify-content-center"
+              variant="insidejob"
+            >
               {homepage_urls &&
                 homepage_urls.map((url, key) => (
                   <ListGroup.Item key={key}>
