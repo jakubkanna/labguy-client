@@ -14,6 +14,7 @@ import Work from "./pages/single/Work";
 import Project from "./pages/single/Project";
 import { fetchData } from "./utils/loader";
 import NotFoundPage from "./pages/404";
+import Calendar from "./pages/single/Calendar";
 
 const routes: RouteObject[] = [
   {
@@ -27,6 +28,12 @@ const routes: RouteObject[] = [
         element: <Post />,
         loader: ({ params }) => fetchData("posts/" + params.slug),
       },
+      {
+        path: "calendar",
+        element: <Calendar />,
+        loader: () => fetchData("projects"),
+      },
+
       { path: "bio", element: <Bio />, loader: () => fetchData("profile/1") },
       {
         path: "posts",

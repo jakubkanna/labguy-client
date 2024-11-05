@@ -7,29 +7,7 @@ import HTMLReactParser from "html-react-parser/lib/index";
 import Layout from "../../components/layout/Layout.";
 
 import MediaComponent from "../../components/Media";
-import dayjs from "dayjs";
-
-// Helper function to handle incomplete date parsing
-function parseDate(dateObj: { [k: string]: unknown } | null | undefined) {
-  if (!dateObj) return "";
-
-  const { year, month, day, time } = dateObj;
-
-  return `${
-    day
-      ? dayjs()
-          .set("date", day as number)
-          .format("dddd") + ", "
-      : ""
-  }
-  ${
-    month
-      ? dayjs()
-          .set("month", month as number)
-          .format("MMMM")
-      : ""
-  } ${year ? year : ""}${time ? ", " + time : ""}`;
-}
+import { parseDate } from "../../utils/helpers";
 
 export default function Project() {
   const data = useLoaderData() as ProjectSchema;

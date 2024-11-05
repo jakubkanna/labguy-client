@@ -11,10 +11,10 @@ function Header() {
   const artists_name = preferences ? preferences.artists_name : "";
 
   return (
-    <header>
+    <header className="position-fixed w-100 top-0 start-0 px-2 z-3">
       <Helmet>
-        <title>{preferences?.artists_name}</title>
-        <meta name="author" content={preferences?.artists_name} />
+        <title>{artists_name}</title>
+        <meta name="author" content={artists_name} />
 
         {/* Favicons and Icons for Different Platforms */}
         <link rel="icon" href="/favicon/favicon.ico" type="image/x-icon" />
@@ -52,15 +52,18 @@ function Header() {
         <link rel="manifest" href="/favicon/site.webmanifest" />
       </Helmet>
       <Navbar expand="lg">
-        <Container>
-          <LinkContainer to="/">
+        <Container fluid>
+          <LinkContainer to="/" className="me-auto">
             <Navbar.Brand>{artists_name}</Navbar.Brand>
           </LinkContainer>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
-          <Navbar.Collapse id="basic-navbar-nav">
-            <Nav className="me-auto">
-              <LinkContainer to="bio">
-                <Nav.Link>Bio</Nav.Link>
+          <Navbar.Collapse
+            id="basic-navbar-nav"
+            className="justify-content-end"
+          >
+            <Nav>
+              <LinkContainer to="calendar">
+                <Nav.Link>Calendar</Nav.Link>
               </LinkContainer>
               <LinkContainer to="projects">
                 <Nav.Link>Projects</Nav.Link>

@@ -2,6 +2,7 @@ import { useLoaderData, useParams, Outlet } from "react-router-dom";
 import {
   GeneralSectionSchema,
   ProjectSchema,
+  TagSchema,
   UrlSchema,
 } from "@jakubkanna/labguy-front-schema";
 import Layout from "../components/layout/Layout.";
@@ -11,7 +12,7 @@ import { Work } from "./Works";
 import { MediaRef } from "../utils/helpers";
 
 export interface Project extends ProjectSchema {
-  general: GeneralSectionSchema;
+  general: GeneralSectionSchema & { tags: TagSchema[] };
   media: MediaRef[];
   urls: UrlSchema[];
   works: Work[];

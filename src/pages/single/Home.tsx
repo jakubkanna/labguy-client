@@ -1,10 +1,10 @@
 import { useContext } from "react";
-import Layout from "../../components/layout/Layout.";
 import { GeneralContext } from "../../contexts/GeneralContext";
 import { Col, ListGroup, Row } from "react-bootstrap";
 import { UrlSchema } from "@jakubkanna/labguy-front-schema";
 import { Link } from "react-router-dom";
 import Background from "../../components/Background";
+import Layout from "../../components/layout/Layout.";
 
 export default function Homepage() {
   const { preferences } = useContext(GeneralContext);
@@ -20,25 +20,23 @@ export default function Homepage() {
 
   return (
     <Layout title="">
-      <Col className="d-flex flex-column gap-2 h-100">
+      <Col className="d-flex flex-column justify-content-center align-items-center h-100 position-relative">
+        <div className="position-absolute top-0 start-0 w-100 h-100 z-n1">
+          <Background media={homepage_media} />
+        </div>
         <Row>
-          <Col>
-            <h1>{homepage_heading}</h1>
+          <Col className="d-flex flex-column align-items-center">
+            {homepage_heading && (
+              <h1 className="display-4 mb-3">{homepage_heading}</h1>
+            )}{" "}
+            {homepage_subheading && (
+              <h2 className="h5 mb-4">{homepage_subheading}</h2>
+            )}{" "}
           </Col>
         </Row>
-        <Row className="flex-grow-1">
-          <Col>
-            <Background media={homepage_media} />
-          </Col>
-        </Row>
         <Row>
           <Col>
-            <h2>{homepage_subheading}</h2>
-          </Col>
-        </Row>
-        <Row>
-          <Col>
-            <ListGroup horizontal>
+            <ListGroup horizontal className="justify-content-center">
               {homepage_urls &&
                 homepage_urls.map((url, key) => (
                   <ListGroup.Item key={key}>
