@@ -2,44 +2,69 @@ import HTMLReactParser from "html-react-parser/lib/index";
 import Layout from "../../components/layout/Layout.";
 import { ProfileSchema } from "@jakubkanna/labguy-front-schema";
 import { useLoaderData } from "react-router-dom";
-import { useContext } from "react";
-import { GeneralContext } from "../../contexts/GeneralContext";
-import PortfolioButton from "../../components/PortfolioButton";
+import { Col, Accordion } from "react-bootstrap";
+import Image from "../../components/Image";
 
 export default function Bio() {
   const data = (useLoaderData() as ProfileSchema) || null;
-  const { preferences } = useContext(GeneralContext);
 
   if (!data) return null;
 
-  const { statement, additional } = data;
+  const { statement, additional, picture } = data;
 
   const arrayToHtml = (arr: unknown) => {
     const array = Array.isArray(arr) ? arr : [];
 
-    return array.map((item, index) => (
-      <div id={`Additional-${index}`} key={index}>
-        {item?.html && HTMLReactParser(item.html)}
-      </div>
-    ));
+    return (
+      <Accordion className="accordion-insidejob">
+        {array.map((item, index) => {
+          // Default title if <h3> is not found
+          let title = `Section ${index + 1}`;
+          let modifiedHtml = item?.html || "";
+
+          if (item?.html) {
+            const tempDiv = document.createElement("div");
+            tempDiv.innerHTML = item.html;
+
+            // Find and extract title from <h3>
+            const h3 = tempDiv.querySelector("h3");
+            if (h3) {
+              title = h3.textContent || title;
+              h3.remove(); // Remove the <h3> element from tempDiv
+            }
+
+            // Get the modified HTML without the <h3>
+            modifiedHtml = tempDiv.innerHTML;
+          }
+
+          return (
+            <Accordion.Item eventKey={String(index)} key={index}>
+              <Accordion.Header>{title}</Accordion.Header>
+              <Accordion.Body>{HTMLReactParser(modifiedHtml)}</Accordion.Body>
+            </Accordion.Item>
+          );
+        })}
+      </Accordion>
+    );
   };
 
   return (
     <Layout title="Bio" description={statement || undefined}>
-      <div id="Statement">
-        <h2>Statement</h2>
-        <div>{statement && HTMLReactParser(statement)}</div>
-      </div>
-      <div id="Additional">
-        <h2>Additional</h2>
-        {arrayToHtml(additional)}
-      </div>
-      {preferences?.enable_portfolio_pdf && (
-        <div id="Portfolio">
-          <h2>Portfolio</h2>
-          <PortfolioButton url={data.portfolio_pdf_url} />
-        </div>
-      )}
+      <>
+        <Col xs={12} md={6} className="mh-100 d-flex flex-column">
+          <h6 className="text-center">Statement</h6>
+          <div className="mh-100 overflow-auto px-4">
+            {picture && <Image imageref={picture} />}
+            {statement && HTMLReactParser(statement)}
+          </div>
+        </Col>
+        <Col xs={12} md={6} className="mh-100 d-flex flex-column">
+          <h6 className="text-center">Additional</h6>
+          <div className="mh-100 overflow-auto px-4 my-auto">
+            {arrayToHtml(additional)}
+          </div>
+        </Col>
+      </>
     </Layout>
   );
 }

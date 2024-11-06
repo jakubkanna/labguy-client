@@ -1,0 +1,27 @@
+/* Custom Accordion Variant - Insidejob */
+.accordion-insidejob .accordion-item {
+  border: none; /* Remove the borders around the items */
+  background-color: transparent; /* Remove background color */
+}
+
+.accordion-insidejob .accordion-header {
+  background-color: transparent; /* Remove the background for the header */
+  border: none; /* Remove the border for the header */
+  color: #000; /* Set the text color to black or any preferred color */
+}
+
+.accordion-insidejob .accordion-button {
+  background-color: transparent; /* Transparent background for the button */
+  border: none; /* Remove the border */
+  color: #000; /* Text color */
+  padding: 1rem; /* Add padding as needed */
+}
+
+.accordion-insidejob .accordion-button:focus {
+  box-shadow: none; /* Remove focus shadow for a cleaner look */
+}
+
+.accordion-insidejob .accordion-body {
+  background-color: transparent; /* Remove background for body */
+  padding: 1rem; /* Adjust padding as needed */
+}
