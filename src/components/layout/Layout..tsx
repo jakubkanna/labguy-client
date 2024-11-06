@@ -28,9 +28,9 @@ export default function Layout({
         <meta name="author" content={metadata.name} />
       </Helmet>
       <Row id="SinglePageHeader" className="justify-content-center">
-        {title && <h5 className="text-center">{title}</h5>}{" "}
+        {title && <h6 className="text-center pb-3">{title}</h6>}{" "}
       </Row>{" "}
-      <Row id="SinglePageContent" className="overflow-hidden h-100">
+      <Row id="SinglePageContent" className="overflow-hidden h-100 ">
         {children}
       </Row>
       <Row id="SinglePageFooter"></Row>

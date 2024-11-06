@@ -1,7 +1,7 @@
 import { Col } from "react-bootstrap";
 import Layout from "../../components/layout/Layout.";
 import { useLoaderData } from "react-router-dom";
-import ProjectDisplay from "../../components/calendar/ProjectDisplay";
+import CalendarListItem from "../../components/calendar/CalendarListItem";
 import { isUpcoming } from "../../utils/helpers";
 import { Project } from "../Projects";
 
@@ -17,7 +17,7 @@ export default function Calendar() {
     return (
       <div className="mh-100 overflow-auto">
         {projects.map((project) => (
-          <ProjectDisplay key={project.id} project={project} />
+          <CalendarListItem key={project.id} project={project} />
         ))}
       </div>
     );

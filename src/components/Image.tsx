@@ -3,15 +3,15 @@ import { ImageRefSchema } from "@jakubkanna/labguy-front-schema";
 import { getImageAttributes } from "../utils/utils";
 
 interface ImageProps {
-  imageref?: ImageRefSchema;
+  imageref: ImageRefSchema;
   className?: string;
   fallbackUrl?: string; // Optional custom fallback image URL
 }
 
 export default function Image({ imageref, className }: ImageProps) {
-  const [imgSrc, setImgSrc] = useState<string | undefined>(""); // State to handle image source
-  const [loading, setLoading] = useState(true); // State to handle loading status
-  const [isImageValid, setIsImageValid] = useState<boolean>(true); // State to check image validity
+  const [imgSrc, setImgSrc] = useState<string | undefined>("");
+  const [loading, setLoading] = useState(true);
+  const [isImageValid, setIsImageValid] = useState<boolean>(true);
 
   const { src, srcSet, sizes, alt } = imageref
     ? getImageAttributes(imageref)

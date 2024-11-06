@@ -4,7 +4,7 @@ import { parseDate } from "../../utils/helpers";
 import { Link } from "react-router-dom";
 import { Col, Row } from "react-bootstrap";
 
-export default function ProjectDisplay({ project }: { project: Project }) {
+export default function CalendarListItem({ project }: { project: Project }) {
   const { general, subtitle, start_date, end_date, venue, urls } = project;
 
   function displayDate(

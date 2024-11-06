@@ -1,15 +1,18 @@
 import { useLoaderData, useParams, Outlet } from "react-router-dom";
 import {
   GeneralSectionSchema,
+  ImageRefSchema,
   ProjectSchema,
   TagSchema,
   UrlSchema,
 } from "@jakubkanna/labguy-front-schema";
-import Layout from "../components/layout/Layout.";
-import ProjectCard from "../components/ProjectCard";
-import { Container } from "react-bootstrap";
+import { Col, Row } from "react-bootstrap";
 import { Work } from "./Works";
-import { MediaRef } from "../utils/helpers";
+import { MediaRef, isImage } from "../utils/helpers"; // Assuming isImage is imported here
+import Layout from "../components/layout/Layout.";
+import Image from "../components/Image";
+import { useState } from "react";
+import { Link } from "react-router-dom";
 
 export interface Project extends ProjectSchema {
   general: GeneralSectionSchema & { tags: TagSchema[] };
@@ -17,25 +20,101 @@ export interface Project extends ProjectSchema {
   urls: UrlSchema[];
   works: Work[];
 }
+function getFirstImage(project: Project) {
+  return project.media.find(isImage);
+}
 
 export default function Projects() {
-  const data = (useLoaderData() as Project[]) || null;
+  const projects = useLoaderData() as Project[];
   const { slug } = useParams();
+  const [preview, setPreview] = useState<ImageRefSchema | null>(
+    getFirstImage(projects[0]) || null
+  );
 
-  if (!data) return null;
+  if (!projects) return null;
+
+  // Extract unique years from projects where `end_date.year` is defined
+  const projectYears = Array.from(
+    new Set(projects.map((project) => project.end_date?.year).filter(Boolean))
+  ).sort((a, b) => (b || 0) - (a || 0)); // Sort years descending
+
+  // Function to filter projects by specific year
+  const getProjectsByYear = (year: number) =>
+    projects.filter((project) => project.end_date?.year === year);
+
+  // Group (by year) of projects
+  const ProjectsGroup = ({
+    year,
+    projectsByYear,
+  }: {
+    year: number;
+    projectsByYear: Project[];
+  }) => (
+    <>
+      <Row>
+        <Col className="text-end">{year}</Col>
+      </Row>
+      <Row>
+        {projectsByYear.map((proj) => (
+          <ProjectsListItem key={proj.id} project={proj} />
+        ))}
+      </Row>
+    </>
+  );
+
+  // List of projects
+  const ProjectsListItem = ({ project }: { project: Project }) => {
+    // Find the first image in project.media
+    const firstImage = getFirstImage(project);
+
+    return (
+      <Row
+        className="my-2"
+        onMouseEnter={() => firstImage && setPreview(firstImage)}
+      >
+        <Col>
+          <Link to={"/projects/" + project.general.slug}>
+            {project.general.title}
+          </Link>
+        </Col>
+      </Row>
+    );
+  };
 
   return (
     <>
       {slug ? (
         <Outlet />
       ) : (
-        <Layout title={"Projects"}>
-          <Container className="d-flex flex-column gap-4">
-            {data.map(
-              (item, i) =>
-                item.general.published && <ProjectCard project={item} key={i} />
+        <Layout title="Projects">
+          <Col xs={12} md={6} className="mh-100 d-flex flex-column">
+            <Row>
+              <h6 className="text-center">Selected Projects</h6>
+            </Row>
+            <Row className="my-2">
+              <Col>
+                <span>Name</span>
+              </Col>
+              <Col className="text-end">
+                <span>Year</span>
+              </Col>
+            </Row>
+            {projectYears.map((year) => (
+              <ProjectsGroup
+                key={year}
+                year={year!}
+                projectsByYear={getProjectsByYear(year!)}
+              />
+            ))}
+          </Col>
+          <Col xs={12} md={6} className="mh-100 ">
+            {preview && (
+              <Image
+                imageref={preview}
+                className="object-fit-cover h-100 w-100"
+              />
             )}
-          </Container>
+          </Col>
         </Layout>
       )}
     </>
