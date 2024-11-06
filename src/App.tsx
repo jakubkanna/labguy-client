@@ -8,10 +8,7 @@ import Fallback from "./components/Fallback";
 
 function App() {
   return (
-    <Container
-      fluid
-      className="d-flex flex-column vh-100 justify-content-center"
-    >
+    <Container fluid className="">
       <Header />
       <Main>
         <ErrorBoundary FallbackComponent={Fallback}>
