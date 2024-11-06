@@ -22,7 +22,7 @@ export default function Work() {
 
   return (
     <Layout title={general.title}>
-      <Container className="d-flex flex-column gap-4">
+      <Container className="d-flex flex-column gap-4 mh-100 overflow-auto">
         {/* Display Dimensions and Year */}
         <Row>
           <Col xs={12}>

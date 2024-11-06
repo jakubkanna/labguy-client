@@ -1,5 +1,5 @@
 import { useLoaderData } from "react-router-dom";
-import { Col, Container, Row } from "react-bootstrap";
+import { Col, Row } from "react-bootstrap";
 import { Project as ProjectSchema } from "../Projects";
 import { Link } from "react-router-dom";
 import WorkCard from "../../components/WorkCard";
@@ -8,6 +8,7 @@ import Layout from "../../components/layout/Layout.";
 
 import MediaComponent from "../../components/Media";
 import { parseDate } from "../../utils/helpers";
+import { Work } from "../Works";
 
 export default function Project() {
   const data = useLoaderData() as ProjectSchema;
@@ -22,7 +23,7 @@ export default function Project() {
     venue,
     urls,
     media,
-    works,
+    ProjectsOnWorks,
     text,
   } = data;
 
@@ -30,61 +31,37 @@ export default function Project() {
 
   const formattedStartDate = parseDate(start_date);
   const formattedEndDate = parseDate(end_date);
+  const works = (ProjectsOnWorks as { work: Work }[]).map((pow) => pow.work);
 
   return (
-    <Layout title={general.title}>
-      <Container className="d-flex flex-column gap-4">
-        <Row>
-          <Col xs={6}>
-            {formattedStartDate && (
-              <p>
-                {formattedStartDate}{" "}
-                {formattedEndDate ? "- " + formattedEndDate : "- N/A"}
-              </p>
-            )}
-            {subtitle && <p>{subtitle}</p>}
-            {venue && <p>{venue}</p>}
-            {text && <>{HTMLReactParser(text as string)}</>}
-            {works && works.length > 0 && (
-              <p>
-                <span>Works: </span>
-                {works.map((w, index) => (
-                  <span key={w.general.slug}>
-                    <Link to={`/works/${w.general.slug}`}>
-                      {w.general.title}
-                    </Link>
-                    {index < works.length - 1 && <span>, </span>}
-                  </span>
-                ))}
-              </p>
-            )}
-          </Col>
-        </Row>
-
-        {/* Render media (images or videos) */}
-        <Row className="gap-3">
-          <Col xs={12}>
-            <MediaComponent media={media} />
-          </Col>
-        </Row>
-
-        {/* Works section */}
-        <Row className="gap-3">
-          {works && works.length > 0 ? (
-            works.map((w) => (
-              <Col xs={12} key={w.id}>
-                <WorkCard work={w} />
-              </Col>
-            ))
-          ) : (
-            <p>No works available for this project.</p>
+    <Layout>
+      <>
+        <Col xs={12} md={6} className="mh-100 d-flex flex-column overflow-auto">
+          <h1>{general.title}</h1>
+          {formattedStartDate && (
+            <p>
+              {formattedStartDate}{" "}
+              {formattedEndDate ? "- " + formattedEndDate : "- N/A"}
+            </p>
           )}
-        </Row>
-
-        {/* Related links */}
-        <Row>
-          <Col>
+          {subtitle && <p>{subtitle}</p>}
+          {venue && <p>{venue}</p>}
+          {works && works.length > 0 && (
+            <p>
+              <span>Works: </span>
+              {works.map((w, index) => (
+                <span key={w.general.slug}>
+                  <Link to={`/works/${w.general.slug}`}>{w.general.title}</Link>
+                  {index < works.length - 1 && <span>, </span>}
+                </span>
+              ))}
+            </p>
+          )}
+          {text && <>{HTMLReactParser(text as string)}</>}
+          <div className="d-flex">
+            {" "}
             <span>Related: </span>
+            <Link to="/projects">All Projects</Link>
             {urls && urls.length > 0 ? (
               urls.map((url, index) => (
                 <span key={url.id}>
@@ -96,14 +73,31 @@ export default function Project() {
               ))
             ) : (
               <p>No related links available.</p>
-            )}{" "}
-            <Link to="/projects">All Projects</Link>
-          </Col>
-        </Row>
-        <Row>
-          <Col></Col>
-        </Row>
-      </Container>
+            )}
+          </div>
+        </Col>
+        <Col xs={12} md={6} className="mh-100 d-flex flex-column overflow-auto">
+          {/* Render project media */}
+          <Row className="gap-3">
+            <Col xs={12}>
+              <MediaComponent media={media} />
+            </Col>
+          </Row>
+
+          {/* Works section */}
+          <Row className="gap-3">
+            {works && works.length > 0 ? (
+              works.map((w) => (
+                <Col xs={12} key={w.id}>
+                  <WorkCard work={w} />
+                </Col>
+              ))
+            ) : (
+              <p>No works available for this project.</p>
+            )}
+          </Row>
+        </Col>
+      </>
     </Layout>
   );
 }

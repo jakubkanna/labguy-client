@@ -19,7 +19,7 @@ export default function WorkCard({ work }: CardProps) {
   const image = isImage(media[0] as MediaRef) && (media[0] as MediaRef);
   const video = isVideo(media[0] as MediaRef) && (media[0] as MediaRef);
   return (
-    <Link to={"/works/" + (slug || "#")}>
+    <Link to={"/works/" + slug}>
       <Container>
         <Row className="gap-3 p-2">
           <Col xs={12}>
@@ -27,7 +27,7 @@ export default function WorkCard({ work }: CardProps) {
             {video && <Video videoref={video}></Video>}
           </Col>
         </Row>
-        <Row>
+        <Row className="text-center">
           <span style={{ textDecoration: "none" }}>
             <span style={{ fontStyle: "italic" }}>{title}</span>
             {dimensions && (
