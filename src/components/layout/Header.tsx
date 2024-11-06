@@ -66,10 +66,10 @@ function Header() {
                 <Nav.Link>Calendar</Nav.Link>
               </LinkContainer>
               <LinkContainer to="projects">
-                <Nav.Link>Projects</Nav.Link>
+                <Nav.Link>Selected Projects</Nav.Link>
               </LinkContainer>
-              <LinkContainer to="works">
-                <Nav.Link>Works</Nav.Link>
+              <LinkContainer to="bio">
+                <Nav.Link>Bio</Nav.Link>
               </LinkContainer>
               <LinkContainer to="contact">
                 <Nav.Link>Contact</Nav.Link>
