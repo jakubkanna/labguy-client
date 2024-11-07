@@ -2,7 +2,7 @@ import { Col } from "react-bootstrap";
 import Layout from "../../components/layout/Layout.";
 import { useLoaderData } from "react-router-dom";
 import CalendarListItem from "../../components/calendar/CalendarListItem";
-import { isUpcoming } from "../../utils/helpers";
+import { isMobile, isUpcoming } from "../../utils/helpers";
 import { Project } from "../Projects";
 
 export default function Calendar() {
@@ -12,10 +12,15 @@ export default function Calendar() {
   const currentProjects = projects.filter((project) => !isUpcoming(project));
   const upcomingProjects = projects.filter((project) => isUpcoming(project));
 
+  // styling
+  const projectListClass =
+    "h-100 overflow-auto d-flex flex-column justify-content-center";
+  const projectListMobileClass = `d-flex flex-column justify-content-center`;
+
   // ProjectList component that maps over projects and returns ProjectDisplay components
   const ProjectList = ({ projects }: { projects: Project[] }) => {
     return (
-      <div className="h-100 overflow-auto d-flex flex-column justify-content-center">
+      <div className={isMobile() ? projectListMobileClass : projectListClass}>
         {projects.map((project) => (
           <CalendarListItem key={project.id} project={project} />
         ))}
@@ -26,11 +31,11 @@ export default function Calendar() {
   return (
     <Layout title="Calendar">
       <>
-        <Col xs={12} md={6} className="mh-100 ">
+        <Col xs={12} md={6} className="mh-100">
           <h6 className="text-center">Current</h6>
           <ProjectList projects={currentProjects} />
         </Col>
-        <Col xs={12} md={6} className="mh-100  ">
+        <Col xs={12} md={6} className="mh-100 ">
           <h6 className="text-center">Upcoming</h6>
           <ProjectList projects={upcomingProjects} />
         </Col>

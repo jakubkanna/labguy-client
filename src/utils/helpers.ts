@@ -3,6 +3,7 @@ import {
   VideoRefSchema,
 } from "@jakubkanna/labguy-front-schema";
 import { Project } from "../pages/Projects";
+import dayjs from "dayjs";
 
 export type MediaRef = ImageRefSchema | VideoRefSchema | null;
 
@@ -48,8 +49,6 @@ function isCurrent(project: Project) {
   );
 }
 
-import dayjs from "dayjs";
-
 function parseDate(dateObj: { [k: string]: unknown } | null | undefined) {
   if (!dateObj) return "";
 
@@ -71,4 +70,8 @@ function parseDate(dateObj: { [k: string]: unknown } | null | undefined) {
   } ${year ? year : ""}${time ? ", " + time : ""}`;
 }
 
-export { isVideo, isImage, isUpcoming, isCurrent, parseDate };
+function isMobile() {
+  return window.innerWidth < 768;
+}
+
+export { isVideo, isImage, isUpcoming, isCurrent, parseDate, isMobile };

@@ -87,7 +87,7 @@ export default function Projects() {
         <Outlet />
       ) : (
         <Layout title="Projects">
-          <Col xs={12} md={6} className="d-flex flex-column mh-100 px-5">
+          <Col xs={12} md={6} className="d-flex flex-column mh-100 px-md-5">
             <Row>
               <h6 className="text-center">Selected Projects</h6>
             </Row>

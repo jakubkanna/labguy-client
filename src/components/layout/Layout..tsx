@@ -2,6 +2,7 @@ import { ReactNode, useContext } from "react";
 import { Row } from "react-bootstrap";
 import { GeneralContext } from "../../contexts/GeneralContext";
 import { Helmet } from "react-helmet";
+import { isMobile } from "../../utils/helpers";
 
 export default function Layout({
   children,
@@ -20,6 +21,9 @@ export default function Layout({
     name: preferences?.artists_name,
   };
 
+  const singlePageContentClass = "overflow-hidden h-100";
+  const singlePageContentMobileClass = "overflow-auto h-100 gap-2";
+
   return (
     <>
       <Helmet>
@@ -30,7 +34,12 @@ export default function Layout({
       <Row id="SinglePageHeader" className="justify-content-center">
         {title && <h6 className="text-center pb-3">{title}</h6>}{" "}
       </Row>{" "}
-      <Row id="SinglePageContent" className="overflow-hidden h-100 ">
+      <Row
+        id="SinglePageContent"
+        className={
+          isMobile() ? singlePageContentMobileClass : singlePageContentClass
+        }
+      >
         {children}
       </Row>
       <Row id="SinglePageFooter"></Row>

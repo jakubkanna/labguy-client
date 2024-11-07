@@ -60,13 +60,14 @@ export default function Project() {
                 ))}
               </p>
             )}
-            <div className="p-5">
+            <div className="p-3 p-md-5">
               {text && <>{HTMLReactParser(text as string)}</>}
             </div>
             <div className="d-flex mt-auto">
               {" "}
-              <span>Related: </span>
+              <span>Related:&nbsp;</span>
               <Link to="/projects">All Projects</Link>
+              <span>&nbsp;</span>
               {urls && urls.length > 0 ? (
                 urls.map((url, index) => (
                   <span key={url.id}>
