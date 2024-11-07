@@ -1,0 +1,39 @@
+/* Header.css */
+
+/* Ensure Offcanvas behaves normally on larger screens (desktop) */
+.custom-offcanvas.offcanvas {
+  transform: none !important; /* Prevent slide animation */
+  transition: none !important; /* Disable transition */
+}
+
+@media (min-width: 992px) {
+  /* On desktop (lg or above), reset to default Offcanvas behavior */
+  .custom-offcanvas.offcanvas {
+    position: static !important; /* Reset position on larger screens */
+    transform: none !important; /* Make sure it doesn't slide */
+    transition: none !important; /* Disable animation on desktop */
+  }
+
+  .custom-offcanvas .offcanvas-body {
+    background-color: transparent; /* Remove background color on desktop */
+    height: auto; /* Allow normal height on desktop */
+  }
+
+  .custom-offcanvas .nav-link {
+    font-size: 1rem; /* Default font size for desktop */
+    text-align: left; /* Align links left on desktop */
+  }
+}
+
+/* On smaller screens (mobile), apply the fullscreen behavior */
+@media (max-width: 991px) {
+  .custom-offcanvas .offcanvas-body {
+    background-color: var(--root-bg-color); /* Fullscreen background color */
+    height: 100vh; /* Fullscreen height */
+  }
+
+  .custom-offcanvas .nav-link {
+    font-size: 1.5rem; /* Larger font size for mobile */
+    text-align: center; /* Center the links on mobile */
+  }
+}

@@ -8,7 +8,7 @@ import {
 } from "@jakubkanna/labguy-front-schema";
 import { Col, Row } from "react-bootstrap";
 import { Work } from "./Works";
-import { MediaRef, isImage } from "../utils/helpers"; // Assuming isImage is imported here
+import { MediaRef, isImage, isMobile } from "../utils/helpers"; // Assuming isImage is imported here
 import Layout from "../components/layout/Layout.";
 import Image from "../components/Image";
 import { useState } from "react";
@@ -111,14 +111,16 @@ export default function Projects() {
               </Col>
             </Row>
           </Col>
-          <Col xs={12} md={6} className="mh-100 ">
-            {preview && (
-              <Image
-                imageref={preview}
-                className="object-fit-cover h-100 w-100"
-              />
-            )}
-          </Col>
+          {!isMobile() && (
+            <Col xs={12} md={6} className="mh-100 ">
+              {preview && (
+                <Image
+                  imageref={preview}
+                  className="object-fit-cover h-100 w-100"
+                />
+              )}
+            </Col>
+          )}
         </Layout>
       )}
     </>

@@ -1,81 +1,81 @@
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import Container from "react-bootstrap/Container";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
-import { LinkContainer } from "react-router-bootstrap"; // Ensure correct import
+import Offcanvas from "react-bootstrap/Offcanvas";
+import { LinkContainer } from "react-router-bootstrap";
 import { GeneralContext } from "../../contexts/GeneralContext";
 import { Helmet } from "react-helmet";
+import { isMobile } from "../../utils/helpers";
 
 function Header() {
   const { preferences } = useContext(GeneralContext);
   const artists_name = preferences ? preferences.artists_name : "";
+
+  // State to control Offcanvas visibility
+  const [showOffcanvas, setShowOffcanvas] = useState(false);
+
+  // Functions to handle Offcanvas toggle
+  const handleShow = () => setShowOffcanvas(true);
+  const handleClose = () => setShowOffcanvas(false);
+
+  const offBodyClass =
+    "d-flex flex-column align-items-end justify-content-center";
+  const offBodyMobileClass =
+    "d-flex flex-column align-items-center justify-content-center";
 
   return (
     <header className="position-fixed w-100 top-0 start-0 px-2 z-3">
       <Helmet>
         <title>{artists_name}</title>
         <meta name="author" content={artists_name} />
-
-        {/* Favicons and Icons for Different Platforms */}
         <link rel="icon" href="/favicon/favicon.ico" type="image/x-icon" />
-        <link
-          rel="icon"
-          type="image/png"
-          sizes="32x32"
-          href="/favicon/favicon-32x32.png"
-        />
-        <link
-          rel="icon"
-          type="image/png"
-          sizes="16x16"
-          href="/favicon/favicon-16x16.png"
-        />
-        <link
-          rel="apple-touch-icon"
-          sizes="180x180"
-          href="/favicon/apple-touch-icon.png"
-        />
-        <link
-          rel="icon"
-          type="image/png"
-          sizes="192x192"
-          href="/favicon/android-chrome-192x192.png"
-        />
-        <link
-          rel="icon"
-          type="image/png"
-          sizes="512x512"
-          href="/favicon/android-chrome-512x512.png"
-        />
-
-        {/* Optional: Web App Manifest for Android */}
-        <link rel="manifest" href="/favicon/site.webmanifest" />
+        {/* Additional meta links */}
       </Helmet>
+
       <Navbar expand="lg">
         <Container fluid>
           <LinkContainer to="/" className="me-auto">
             <Navbar.Brand>{artists_name}</Navbar.Brand>
           </LinkContainer>
-          <Navbar.Toggle aria-controls="basic-navbar-nav" />
-          <Navbar.Collapse
-            id="basic-navbar-nav"
-            className="justify-content-end"
+
+          {/* Toggle Button to show Offcanvas */}
+          <Navbar.Toggle aria-controls="offcanvasNavbar" onClick={handleShow} />
+
+          {/* Offcanvas without any transition */}
+          <Navbar.Offcanvas
+            id="offcanvasNavbar"
+            aria-labelledby="offcanvasNavbarLabel"
+            placement="end"
+            show={showOffcanvas}
+            onHide={handleClose}
+            className="custom-offcanvas" // Custom class for styling
           >
-            <Nav>
-              <LinkContainer to="calendar">
-                <Nav.Link>Calendar</Nav.Link>
-              </LinkContainer>
-              <LinkContainer to="projects">
-                <Nav.Link>Selected Projects</Nav.Link>
-              </LinkContainer>
-              <LinkContainer to="bio">
-                <Nav.Link>Bio</Nav.Link>
-              </LinkContainer>
-              <LinkContainer to="contact">
-                <Nav.Link>Contact</Nav.Link>
-              </LinkContainer>
-            </Nav>
-          </Navbar.Collapse>
+            <Offcanvas.Header closeButton>
+              <Offcanvas.Title id="offcanvasNavbarLabel">
+                {artists_name}
+              </Offcanvas.Title>
+            </Offcanvas.Header>
+
+            <Offcanvas.Body
+              className={isMobile() ? offBodyMobileClass : offBodyClass}
+            >
+              <Nav>
+                <LinkContainer to="calendar">
+                  <Nav.Link onClick={handleClose}>Calendar</Nav.Link>
+                </LinkContainer>
+                <LinkContainer to="projects">
+                  <Nav.Link onClick={handleClose}>Selected Projects</Nav.Link>
+                </LinkContainer>
+                <LinkContainer to="bio">
+                  <Nav.Link onClick={handleClose}>Bio</Nav.Link>
+                </LinkContainer>
+                <LinkContainer to="contact">
+                  <Nav.Link onClick={handleClose}>Contact</Nav.Link>
+                </LinkContainer>
+              </Nav>
+            </Offcanvas.Body>
+          </Navbar.Offcanvas>
         </Container>
       </Navbar>
     </header>
