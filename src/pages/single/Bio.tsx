@@ -53,14 +53,14 @@ export default function Bio() {
       <>
         <Col xs={12} md={6} className="mh-100 d-flex flex-column">
           <h6 className="text-center">Statement</h6>
-          <div className="mh-100 overflow-auto px-4">
+          <div className="mh-100 overflow-auto px-5">
             {picture && <Image imageref={picture} />}
             {statement && HTMLReactParser(statement)}
           </div>
         </Col>
         <Col xs={12} md={6} className="mh-100 d-flex flex-column">
           <h6 className="text-center">Additional</h6>
-          <div className="mh-100 overflow-auto px-4 my-auto">
+          <div className="mh-100 overflow-auto px-5 my-auto">
             {arrayToHtml(additional)}
           </div>
         </Col>

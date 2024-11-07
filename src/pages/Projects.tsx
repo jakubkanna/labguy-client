@@ -87,7 +87,7 @@ export default function Projects() {
         <Outlet />
       ) : (
         <Layout title="Projects">
-          <Col xs={12} md={6} className="mh-100 d-flex flex-column">
+          <Col xs={12} md={6} className="d-flex flex-column mh-100 px-5">
             <Row>
               <h6 className="text-center">Selected Projects</h6>
             </Row>
@@ -99,13 +99,17 @@ export default function Projects() {
                 <span>Year</span>
               </Col>
             </Row>
-            {projectYears.map((year) => (
-              <ProjectsGroup
-                key={year}
-                year={year!}
-                projectsByYear={getProjectsByYear(year!)}
-              />
-            ))}
+            <Row className="flex-grow-1 overflow-auto">
+              <Col className="d-flex flex-column justify-content-end ">
+                {projectYears.map((year) => (
+                  <ProjectsGroup
+                    key={year}
+                    year={year!}
+                    projectsByYear={getProjectsByYear(year!)}
+                  />
+                ))}
+              </Col>
+            </Row>
           </Col>
           <Col xs={12} md={6} className="mh-100 ">
             {preview && (

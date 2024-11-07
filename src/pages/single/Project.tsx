@@ -38,42 +38,48 @@ export default function Project() {
       <>
         <Col xs={12} md={6} className="mh-100 d-flex flex-column overflow-auto">
           <h1>{general.title}</h1>
-          {formattedStartDate && (
-            <p>
-              {formattedStartDate}{" "}
-              {formattedEndDate ? "- " + formattedEndDate : "- N/A"}
-            </p>
-          )}
-          {subtitle && <p>{subtitle}</p>}
-          {venue && <p>{venue}</p>}
-          {works && works.length > 0 && (
-            <p>
-              <span>Works: </span>
-              {works.map((w, index) => (
-                <span key={w.general.slug}>
-                  <Link to={`/works/${w.general.slug}`}>{w.general.title}</Link>
-                  {index < works.length - 1 && <span>, </span>}
-                </span>
-              ))}
-            </p>
-          )}
-          {text && <>{HTMLReactParser(text as string)}</>}
-          <div className="d-flex">
-            {" "}
-            <span>Related: </span>
-            <Link to="/projects">All Projects</Link>
-            {urls && urls.length > 0 ? (
-              urls.map((url, index) => (
-                <span key={url.id}>
-                  <Link to={url.url} target="_blank">
-                    {url.title}
-                  </Link>
-                  {index < urls.length - 1 && <span>, </span>}
-                </span>
-              ))
-            ) : (
-              <p>No related links available.</p>
+          <div className="d-flex flex-column pt-3 px-3 h-100">
+            {formattedStartDate && (
+              <p>
+                {formattedStartDate}{" "}
+                {formattedEndDate ? "- " + formattedEndDate : "- N/A"}
+              </p>
             )}
+            {subtitle && <p>{subtitle}</p>}
+            {venue && <p>{venue}</p>}
+            {works && works.length > 0 && (
+              <p>
+                <span>Works: </span>
+                {works.map((w, index) => (
+                  <span key={w.general.slug}>
+                    <Link to={`/works/${w.general.slug}`}>
+                      {w.general.title}
+                    </Link>
+                    {index < works.length - 1 && <span>, </span>}
+                  </span>
+                ))}
+              </p>
+            )}
+            <div className="p-5">
+              {text && <>{HTMLReactParser(text as string)}</>}
+            </div>
+            <div className="d-flex mt-auto">
+              {" "}
+              <span>Related: </span>
+              <Link to="/projects">All Projects</Link>
+              {urls && urls.length > 0 ? (
+                urls.map((url, index) => (
+                  <span key={url.id}>
+                    <Link to={url.url} target="_blank">
+                      {url.title}
+                    </Link>
+                    {index < urls.length - 1 && <span>, </span>}
+                  </span>
+                ))
+              ) : (
+                <p>No related links available.</p>
+              )}
+            </div>
           </div>
         </Col>
         <Col xs={12} md={6} className="mh-100 d-flex flex-column overflow-auto">

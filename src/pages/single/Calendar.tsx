@@ -15,7 +15,7 @@ export default function Calendar() {
   // ProjectList component that maps over projects and returns ProjectDisplay components
   const ProjectList = ({ projects }: { projects: Project[] }) => {
     return (
-      <div className="mh-100 overflow-auto">
+      <div className="h-100 overflow-auto d-flex flex-column justify-content-center">
         {projects.map((project) => (
           <CalendarListItem key={project.id} project={project} />
         ))}
@@ -26,11 +26,11 @@ export default function Calendar() {
   return (
     <Layout title="Calendar">
       <>
-        <Col xs={12} md={6} className="mh-100 d-flex flex-column">
+        <Col xs={12} md={6} className="mh-100 ">
           <h6 className="text-center">Current</h6>
           <ProjectList projects={currentProjects} />
         </Col>
-        <Col xs={12} md={6} className="mh-100 d-flex flex-column">
+        <Col xs={12} md={6} className="mh-100  ">
           <h6 className="text-center">Upcoming</h6>
           <ProjectList projects={upcomingProjects} />
         </Col>
