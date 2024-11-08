@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { ImageRefSchema } from "@jakubkanna/labguy-front-schema";
 import { getImageAttributes } from "../utils/utils";
+import { Fade } from "react-bootstrap";
 
 interface ImageProps {
   imageref: ImageRefSchema;
@@ -48,13 +49,15 @@ export default function Image({ imageref, className }: ImageProps) {
   }
 
   return (
-    <img
-      src={imgSrc}
-      srcSet={srcSet}
-      sizes={sizes}
-      alt={alt}
-      loading="lazy"
-      className={className || "img-fluid"}
-    />
+    <Fade in={!loading} appear={true} timeout={500}>
+      <img
+        src={imgSrc}
+        srcSet={srcSet}
+        sizes={sizes}
+        alt={alt}
+        loading="lazy"
+        className={className || "img-fluid"}
+      />
+    </Fade>
   );
 }

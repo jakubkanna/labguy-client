@@ -1,9 +1,10 @@
 import { ReactNode, useEffect, useState } from "react";
 import { Fade } from "react-bootstrap";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigation } from "react-router-dom";
 
 export default function Main({ children }: { children: ReactNode }) {
   const location = useLocation();
+  const navigation = useNavigation();
   const isHomePage = location.pathname === "/";
 
   const homeClasses = "container-fluid d-flex flex-column flex-grow-1 p-0";
@@ -12,15 +13,8 @@ export default function Main({ children }: { children: ReactNode }) {
   // State to store header and footer padding values
   const [padding, setPadding] = useState({ paddingTop: 0, paddingBottom: 0 });
 
-  // Fade-in control
+  // State to manage fade-in effect
   const [fadeIn, setFadeIn] = useState(true);
-
-  // Trigger fade animation on location change using `location.key`
-  useEffect(() => {
-    setFadeIn(false);
-    const timeout = setTimeout(() => setFadeIn(true), 500);
-    return () => clearTimeout(timeout);
-  }, [location]);
 
   // Calculate header and footer padding on component mount
   useEffect(() => {
@@ -48,8 +42,28 @@ export default function Main({ children }: { children: ReactNode }) {
     });
   }, []);
 
+  // Handle fade-in logic based on navigation state
+  useEffect(() => {
+    console.log(navigation.state);
+    // Store timeout ID to clear it on cleanup
+    const timeoutId = setTimeout(() => {
+      if (navigation.state !== "loading") {
+        setFadeIn(true);
+      }
+    }, 150);
+
+    // When navigation state is "loading," disable fade-in immediately
+    if (navigation.state === "loading") {
+      setFadeIn(false);
+      clearTimeout(timeoutId);
+    }
+
+    // Clear timeout when the component unmounts or effect reruns
+    return () => clearTimeout(timeoutId);
+  }, [navigation.state]);
+
   return (
-    <Fade in={fadeIn} timeout={500}>
+    <Fade in={fadeIn} timeout={150}>
       <main
         className={`${isHomePage ? homeClasses : pageClasses} `}
         style={{
