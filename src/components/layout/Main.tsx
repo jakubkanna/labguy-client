@@ -1,4 +1,5 @@
 import { ReactNode, useEffect, useState } from "react";
+import { Fade } from "react-bootstrap";
 import { useLocation } from "react-router-dom";
 
 export default function Main({ children }: { children: ReactNode }) {
@@ -11,8 +12,18 @@ export default function Main({ children }: { children: ReactNode }) {
   // State to store header and footer padding values
   const [padding, setPadding] = useState({ paddingTop: 0, paddingBottom: 0 });
 
+  // Fade-in control
+  const [fadeIn, setFadeIn] = useState(true);
+
+  // Trigger fade animation on location change using `location.key`
   useEffect(() => {
-    // Function to get the full height including padding and margins
+    setFadeIn(false);
+    const timeout = setTimeout(() => setFadeIn(true), 500);
+    return () => clearTimeout(timeout);
+  }, [location]);
+
+  // Calculate header and footer padding on component mount
+  useEffect(() => {
     const getElementHeight = (element: HTMLElement | null): number => {
       if (!element) return 0;
       const style = window.getComputedStyle(element);
@@ -25,15 +36,12 @@ export default function Main({ children }: { children: ReactNode }) {
       );
     };
 
-    // Select header and footer elements
     const header = document.querySelector("header");
     const footer = document.querySelector("footer");
 
-    // Get their heights including padding and margins
     const headerHeight = getElementHeight(header);
     const footerHeight = getElementHeight(footer);
 
-    // Update the state with calculated padding values
     setPadding({
       paddingTop: headerHeight,
       paddingBottom: footerHeight,
@@ -41,15 +49,17 @@ export default function Main({ children }: { children: ReactNode }) {
   }, []);
 
   return (
-    <main
-      className={`${isHomePage ? homeClasses : pageClasses} `}
-      style={{
-        height: "100dvh",
-        paddingTop: `${padding.paddingTop}px`,
-        paddingBottom: `${padding.paddingBottom}px`,
-      }}
-    >
-      {children}
-    </main>
+    <Fade in={fadeIn} timeout={500}>
+      <main
+        className={`${isHomePage ? homeClasses : pageClasses} `}
+        style={{
+          height: "100dvh",
+          paddingTop: `${padding.paddingTop}px`,
+          paddingBottom: `${padding.paddingBottom}px`,
+        }}
+      >
+        {fadeIn && children}
+      </main>
+    </Fade>
   );
 }
