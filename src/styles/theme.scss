@@ -19,6 +19,10 @@ a {
   }
 }
 
+.bg-insidejob-light {
+  background-color: $ijoblight;
+}
+
 @import "./scrollbar.scss";
 @import "./listgroup.scss";
 @import "./btn.scss";

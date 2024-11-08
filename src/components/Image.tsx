@@ -27,12 +27,10 @@ export default function Image({ imageref, className }: ImageProps) {
             setImgSrc(src);
             setIsImageValid(true);
           } else {
-            // If not OK, set the fallback URL
             setIsImageValid(false);
           }
         })
         .catch(() => {
-          // If there's an error in the fetch, also set the fallback URL
           setIsImageValid(false);
         })
         .finally(() => {

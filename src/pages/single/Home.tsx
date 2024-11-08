@@ -18,14 +18,19 @@ export default function Homepage() {
     homepage_urls,
   } = preferences;
 
+  const Backdrop = ({ className }: { className: string }) => {
+    return <div className={className}></div>;
+  };
+
   return (
     <Layout title="">
       <Col className="d-flex flex-column justify-content-center align-items-center h-100 position-relative">
         <div className="position-absolute top-0 start-0 w-100 h-100 z-0">
+          <Backdrop className="h-100 w-100 z-1 bg-insidejob-light position-fixed opacity-25" />
           <Background media={homepage_media} />
         </div>
         <Row>
-          <Col className="d-flex flex-column align-items-center z-1">
+          <Col className="d-flex flex-column align-items-center z-2">
             {homepage_heading && (
               <h1 className="display-4 mb-3">{homepage_heading}</h1>
             )}{" "}

@@ -53,7 +53,7 @@ export default function Bio() {
       <Col xs={12} md={6} className="mh-100 d-flex flex-column">
         <h6 className="text-center">Statement</h6>
         <div className="h-100 overflow-auto px-md-5">
-          {picture && <Image imageref={picture} />}
+          {picture && <Image imageref={picture} className="img-fluid pb-4" />}
           {statement && HTMLReactParser(statement)}
         </div>
       </Col>
