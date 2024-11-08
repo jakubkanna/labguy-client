@@ -1,6 +1,6 @@
 .btn-insidejob {
-  background-color: black;
-  color: white;
+  background-color: $ijobdark;
+  color: $ijoblight;
   border: none;
   text-transform: uppercase;
   width: 150px; /* Fixed width for each item */
@@ -23,12 +23,13 @@
   );
 
   a {
-    color: white;
+    color: $ijoblight;
     text-decoration: none;
   }
 
   /* Change background color on hover */
   &:hover {
-    background-color: $secondary;
+    background-color: black;
+    color: white;
   }
 }

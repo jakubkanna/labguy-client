@@ -49,7 +49,7 @@ function Header() {
             placement="end"
             show={showOffcanvas}
             onHide={handleClose}
-            className="custom-offcanvas" // Custom class for styling
+            className="insidejob-offcanvas"
           >
             <Offcanvas.Header closeButton>
               <Offcanvas.Title id="offcanvasNavbarLabel">

@@ -1,20 +1,27 @@
 @import "../../node_modules/bootstrap/scss/functions";
 @import "../../node_modules/bootstrap/scss/variables";
-@import "./scrollbar.scss";
-@import "./listgroup.scss";
-@import "./btn.scss";
-@import "./accordion.scss";
-@import "./offcanvas.scss";
+
+$ijobdark: #353530;
+$ijoblight: #ecedef;
 
 html,
 body {
   font-family: "Times New Roman", Times, serif;
+  background-color: $ijoblight;
+  color: $ijobdark !important;
 }
 
 a {
-  color: $secondary;
+  color: black;
   text-decoration: none;
   &:hover {
     color: black;
   }
 }
+
+@import "./scrollbar.scss";
+@import "./listgroup.scss";
+@import "./btn.scss";
+@import "./accordion.scss";
+@import "./offcanvas.scss";
+@import "./navbar.scss";

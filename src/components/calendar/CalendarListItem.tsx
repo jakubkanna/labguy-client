@@ -29,7 +29,7 @@ export default function CalendarListItem({ project }: { project: Project }) {
       <div className="d-flex flex-wrap gap-2">
         {/* Check if the project is published and render the internal link */}
         {general.published && general.slug && (
-          <Link to={`/projects/${general.slug}`} className="link-secondary">
+          <Link to={`/projects/${general.slug}`}>
             <i className="bi bi-link"></i> {/* Internal project link icon */}
           </Link>
         )}
@@ -37,12 +37,7 @@ export default function CalendarListItem({ project }: { project: Project }) {
         {/* Render external links */}
         {urls?.map((url) => (
           <span key={url.id}>
-            <a
-              href={url.url}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="link-secondary"
-            >
+            <a href={url.url} target="_blank" rel="noopener noreferrer">
               <i className="bi bi-box-arrow-up-right"></i>{" "}
               {/* External link icon */}
             </a>

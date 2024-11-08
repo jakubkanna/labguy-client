@@ -21,11 +21,11 @@ export default function Homepage() {
   return (
     <Layout title="">
       <Col className="d-flex flex-column justify-content-center align-items-center h-100 position-relative">
-        <div className="position-absolute top-0 start-0 w-100 h-100 z-n1">
+        <div className="position-absolute top-0 start-0 w-100 h-100 z-0">
           <Background media={homepage_media} />
         </div>
         <Row>
-          <Col className="d-flex flex-column align-items-center">
+          <Col className="d-flex flex-column align-items-center z-1">
             {homepage_heading && (
               <h1 className="display-4 mb-3">{homepage_heading}</h1>
             )}{" "}
