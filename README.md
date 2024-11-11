@@ -1,4 +1,4 @@
-# Lab Guy Dashboard
+# Lab Guy / Insidejob Client
 
 ## Installation
 
@@ -16,8 +16,7 @@
 4. You are good to go!
    ```js
    npm run dev
-   npm run build
-   npm run preview
+   npm run deploy
    ```
 
 ## Todo
