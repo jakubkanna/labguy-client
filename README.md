@@ -18,13 +18,3 @@
    npm run dev
    npm run deploy
    ```
-
-## Todo
-
-1. General
-
-2. Details
-
-3. Future
-
-- Add Vimdeo, Soundcloud, 3D support
