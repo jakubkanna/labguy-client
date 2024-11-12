@@ -21,7 +21,7 @@ export interface Project extends ProjectSchema {
   works: Work[];
 }
 function getFirstImage(project: Project) {
-  return project.media.find(isImage);
+  return project.media?.find(isImage);
 }
 
 export default function Projects() {
