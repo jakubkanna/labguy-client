@@ -1,8 +1,8 @@
 {
-  "name": "insidejob-client",
+  "name": "labguy-client",
   "author": "jakubkanna",
   "license": "GPL-3.0-only",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -50,7 +50,7 @@
     "eslint-plugin-react-hooks": "^5.1.0-rc.0",
     "eslint-plugin-react-refresh": "^0.4.14",
     "globals": "^15.12.0",
-    "sass-embedded": "^1.83.0",
+    "sass-embedded": "^1.77.5",
     "typescript": "^5.7.2",
     "typescript-eslint": "^8.16.0",
     "vite": "^6.0.1"
