@@ -18,12 +18,11 @@ export const GeneralProvider: React.FC<GeneralProviderProps> = ({
     let firstRun = true;
 
     const init = async () => {
-      console.log("run init");
       try {
         setLoading(true);
 
         if (!import.meta.env.VITE_API_URL) {
-          throw new Error("Server API URL not found");
+          console.error("Server API URL not found");
         }
 
         const input = import.meta.env.VITE_API_URL + "/preferences";
