@@ -13,7 +13,7 @@
    VITE_API_GITHUB_REPO="labguy-server"
    VITE_API_GITHUB_WORKFLOW_FILE="check.yml"
    VITE_API_GITHUB_TOKEN="your-personal-access-token"
-   VITE_CLD_CLOUD_NAME="dzsehmvrr"
+   VITE_CLD_CLOUD_NAME="your-cloud-name"
    ```
 
 3. You are good to go!
