@@ -1,6 +1,7 @@
-import { ReactNode, useState, useMemo, useEffect } from "react";
+import { ReactNode, useState, useEffect } from "react";
 import LoadingPage from "../../pages/Loading";
 import { GeneralContext, Preferences } from "../GeneralContext";
+import handleFetchError from "../../utils/handleFetchError";
 
 interface GeneralProviderProps {
   children: ReactNode;
@@ -13,46 +14,86 @@ export const GeneralProvider: React.FC<GeneralProviderProps> = ({
   const [loading, setLoading] = useState<boolean>(true);
   const [status, setStatus] = useState<number | null>(null);
 
-  const fetchPreferences = useMemo(() => {
-    const fetchPreferencesFromServer = async () => {
-      const endpoint = "/preferences";
-      const apiUrl = import.meta.env.VITE_SERVER_API_URL + endpoint;
+  useEffect(() => {
+    let firstRun = true;
 
+    const init = async () => {
+      console.log("run init");
       try {
-        const response = await fetch(apiUrl);
-        if (!response.ok && response.status === 429) {
-          setStatus(429);
-        } else if (!response.ok) {
-          throw new Error(`Error fetching preferences: ${response.statusText}`);
+        setLoading(true);
+
+        if (!import.meta.env.VITE_API_URL) {
+          throw new Error("Server API URL not found");
         }
-        const data = await response.json();
-        setPreferences(data);
-        setLoading(false);
-      } catch (error) {
-        console.error(error);
+
+        const input = import.meta.env.VITE_API_URL + "/preferences";
+        const response = await fetch(input);
+
+        if (response.ok) {
+          const data = await response.json();
+          setPreferences(data);
+          setLoading(false);
+        } else {
+          setStatus(response.status);
+        }
+      } catch {
+        triggerCheck();
       }
     };
 
-    return fetchPreferencesFromServer;
+    const triggerCheck = async () => {
+      if (!import.meta.env.VITE_API_GITHUB_TOKEN) return;
+
+      const owner = import.meta.env.VITE_API_GITHUB_OWNER;
+      const repo = import.meta.env.VITE_API_GITHUB_REPO;
+      const workflowFileName = import.meta.env.VITE_API_GITHUB_WORKFLOW_FILE;
+      const token = import.meta.env.VITE_API_GITHUB_TOKEN;
+
+      const apiUrl = `https://api.github.com/repos/${owner}/${repo}/actions/workflows/${workflowFileName}/dispatches`;
+
+      const data = {
+        ref: "main", // The branch name where the workflow file is located
+      };
+
+      try {
+        const response = await fetch(apiUrl, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+          body: JSON.stringify(data),
+        });
+
+        if (response.ok) {
+          const delay = firstRun ? 15000 : 300000; // 15 seconds for the first run, 5 minutes for subsequent runs
+          firstRun = false;
+          setTimeout(() => init(), delay);
+        }
+      } catch (error) {
+        console.error("Error triggering workflow:", error);
+      }
+    };
+
+    // call
+    init();
   }, []);
 
-  useEffect(() => {
-    fetchPreferences();
-  }, [fetchPreferences]);
+  const Child = () => {
+    if (loading) {
+      return <LoadingPage />;
+    } else if (status) {
+      return <p>{"Error: " + handleFetchError(status)}</p>;
+    } else {
+      return children;
+    }
+  };
 
   return (
     <GeneralContext.Provider
       value={{ preferences, setPreferences, loading, setLoading }}
     >
-      {loading ? (
-        <LoadingPage />
-      ) : status === 429 ? (
-        <p className="font-monospace">
-          You have been timed-out. Please try again later.
-        </p>
-      ) : (
-        children
-      )}
+      <Child />
     </GeneralContext.Provider>
   );
 };

@@ -16,13 +16,11 @@ const staticRoutes = [
 
 // Assuming you have a function to fetch dynamic slugs for posts, projects, etc.
 const fetchSlugs = async (routeType) => {
-  const apiUrl = process.env.VITE_SERVER_API_URL;
+  const apiUrl = process.env.VITE_API_URL;
 
   // Ensure the API URL is defined
   if (!apiUrl) {
-    throw new Error(
-      "VITE_SERVER_API_URL is not defined in environment variables"
-    );
+    throw new Error("VITE_API_URL is not defined in environment variables");
   }
 
   try {

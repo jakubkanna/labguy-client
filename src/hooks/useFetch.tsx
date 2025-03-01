@@ -12,9 +12,7 @@ export const useFetchData = <T,>(path: string) => {
       setError(null);
 
       try {
-        const response = await fetch(
-          `${import.meta.env.VITE_SERVER_API_URL}/${path}`
-        );
+        const response = await fetch(`${import.meta.env.VITE_API_URL}/${path}`);
         if (!response.ok) {
           throw new Error(handleFetchError(response.status));
         }
